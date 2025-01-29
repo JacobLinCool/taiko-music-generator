@@ -10,8 +10,10 @@ package-mode = false
 [tool.poetry.dependencies]
 python = "^3.10"
 gradio = "^4.19.2"
-chardet = "^5.2.0"
-typer = "0.11.1"
+tja = "^0.3.2"
+
+[tool.poetry.group.dev.dependencies]
+objprint = "^0.3.0"
 
 [build-system]
 requires = ["poetry-core"]
