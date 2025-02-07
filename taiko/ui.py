@@ -20,7 +20,7 @@ def UserInterface(event_handler: callable) -> gr.Interface:
     taiko = TaikoMusic()
 
     with gr.Blocks(delete_cache=(86400, 86400)) as gradio_interface:
-        gr.Markdown("> For Neokent NTNU CP2, click [here](https://huggingface.co/spaces/ryanlinjui/ntnucp2-taiko-music-generator)")
+        gr.Markdown("> For Neokent NTNU CP2, click [here](https://huggingface.co/spaces/ryanlinjui/ntnucp2-taiko-music-generator) <br> Verify tja format by [TJA Tools](https://whmhammer.github.io/tja-tools/)")
         gr.Markdown("# 太鼓の達人音楽ジェネレーター (Taiko Music Generator)")
 
         # split the interface into two columns: input files and settings, and music player
@@ -84,7 +84,8 @@ def UserInterface(event_handler: callable) -> gr.Interface:
                     with gr.Row():
                         gr.Examples(
                             examples=[[f"examples/{song}/{song}.tja", f"examples/{song}/{song}.ogg"] for song in EXAMPLE_SONG_LIST],
-                            inputs=[taiko.tja_file, taiko.song_file]
+                            inputs=[taiko.tja_file, taiko.song_file],
+                            label="例 / Examples (Click it!)"
                         )
                     
             # gradio column block: music player
