@@ -1,17 +1,32 @@
 # Taiko Music Generator
 
-**Mix sougs and [Taiko no Tatsujin](https://taiko.namco-ch.net/taiko/en/) drum sounds to generate Taiko Music.**
+**Mix sougs and [太鼓の達人 (Taiko no Tatsujin)](https://taiko.namco-ch.net/taiko/en/) drum sounds to generate Taiko Music.**
 
 # Demo
 TBA
 
+> Input `.tja` format must follow [TJA Tools](https://whmhammer.github.io/tja-tools/) website.
+
+# Features
+- [x] **Music Course Level Output**
+  - 裏 (Ura)
+  - おに (Oni)
+  - むずかしい (Hard)
+  - ふつう (Normal)
+  - かんたん (Easy)
+- [x] **Common Settings**
+  - 譜面分岐 (Sheet Branch)
+  - 連打/秒 (DrumRoll hits per second)
+- [x] **Adjustable Volume**: Modify the volume for individual taiko notes or entire songs.
+- [x] **Example Music**: Preloaded sample .tja files and songs to help you get started quickly.
+
 # FAQ
+### What is `.tja` file?  
+The `.tja` file format is designed for Taiko simulators to provide playable charts data.
+> For more details, visit this [wiki](https://wikiwiki.jp/jiro/太鼓さん次郎#tja).
 
-## What is `.tja` extension file?
-`.tja` is a file format created for Taiko simulators to have playable charts.
-> visit [here](https://github.com/269Seahorse/Better-taiko-web/blob/master/TJA-format.mediawiki) for more information
+### How is `.tja` converted to music?  
+By [tja-rs](https://github.com/JacobLinCool/tja-rs), taiko notes in the `.tja` file are mapped to a timeline in the song.<br>
+This concept can be found in [Homework 01, Problem 05](https://drive.google.com/file/d/1Wdv4nLaoXsXFZX17OleQpllvq5ii_n08/view) from the [2024 NTNU CP2 course](https://sites.google.com/gapps.ntnu.edu.tw/neokent/teaching/2024spring-computer-programming-ii).
 
-## What is `RhythmAnnotation` format?
-The note timeline in song maped by chart in json file. It's used to [homework01 problem 05](https://drive.google.com/file/d/1Wdv4nLaoXsXFZX17OleQpllvq5ii_n08/view) in [2024 NTNU CP2](https://sites.google.com/gapps.ntnu.edu.tw/neokent/teaching/2024spring-computer-programming-ii).
-
-> `ryan`, as [JacobLinCool](https://github.com/JacobLinCool) abbreviates
+> Credits by [JacobLinCool](https://github.com/JacobLinCool), [RyanLin(ryanlinjui)](https://github.com/ryanlinjui).
