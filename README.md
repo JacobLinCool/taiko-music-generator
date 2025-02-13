@@ -3,7 +3,8 @@
 **Mix sougs and [太鼓の達人 (Taiko no Tatsujin)](https://taiko.namco-ch.net/taiko/en/) drum sounds to generate Taiko Music.**
 
 # Demo
-TBA
+
+https://github.com/user-attachments/assets/d4c202a1-d9d1-4323-96f5-c8848f5d1185
 
 > Input `.tja` format must follow [TJA Tools](https://whmhammer.github.io/tja-tools/) website.
 
