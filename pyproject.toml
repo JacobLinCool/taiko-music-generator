@@ -12,9 +12,6 @@ python = "^3.10"
 gradio = "^4.19.2"
 tja = "^0.3.2"
 
-[tool.poetry.group.dev.dependencies]
-objprint = "^0.3.0"
-
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

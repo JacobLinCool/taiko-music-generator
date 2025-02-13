@@ -113,17 +113,6 @@ class TaikoMusic:
 
     def __process(self, chart: PyChart) -> AudioSegment:
         annotated_chart = self.__annotate_sound(chart)
-        if not annotated_chart:
-            if self.song_file:
-                if self.song_file.endswith(".mp3"):
-                    return AudioSegment.from_mp3(self.song_file)
-                elif self.song_file.endswith(".ogg"):
-                    return AudioSegment.from_ogg(self.song_file)
-                else:
-                    raise ValueError("Unsupported file format. Please provide mp3 or ogg file.")
-            else:
-                return AudioSegment.silent(duration=0)
-
         drum_hit_duration = 0.5
         sample_end_times = []
         
@@ -169,6 +158,16 @@ class TaikoMusic:
                 background_music = AudioSegment.from_ogg(self.song_file)
             else:
                 raise ValueError("Unsupported file format. Please provide mp3 or ogg file.")
+            
+            # Calculate gain in dB relative to DEFAULT_SOUND_VOLUME
+            if self.song_sound_volume > 0:
+                volume_factor = self.song_sound_volume / DEFAULT_SOUND_VOLUME
+                gain_db = 20 * np.log10(volume_factor)
+                background_music = background_music.apply_gain(gain_db)
+            else:
+                # If volume is zero or negative, mute the background music
+                background_music = background_music - 120
+
             mixed_audio_with_bg = background_music.overlay(mixed_audio_segment)
             return mixed_audio_with_bg
 
