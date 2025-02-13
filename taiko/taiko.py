@@ -13,12 +13,9 @@ BALLOON_BANG_WAV = "./assets/sound/Balloon.wav"
 PARTY_POPPER_SUCCESS_WAV = "./assets/sound/PartyPopperSuccess.wav"
 PARTY_POPPER_FAILURE_WAV = "./assets/sound/PartyPopperFailure.wav"
 
-DEFAULT_HIT_PER_SEC = 15  # drum hits in drumroll, balloon
+DEFAULT_HIT_PER_SEC = 20  # drum hits in drumroll, balloon
 DEFAULT_SOUND_VOLUME = 5  # for song, taiko notes volume settings
 DEFAULT_BALLOON_COUNT = 5  # set default if balloon count is missing in tja file
-
-# Extra gain in dB for DON and BALLOON_BANG sounds (fixed increase)
-EXTRA_GAIN_FOR_DON_BALLOON = 5
 
 SHEET_BRANCH = {
     "普通譜面 / Normal": "N",
@@ -34,12 +31,10 @@ class CourseMusic:
     normal: Union[AudioSegment, Tuple[int, np.ndarray]] = field(default_factory=AudioSegment.empty)
     easy: Union[AudioSegment, Tuple[int, np.ndarray]] = field(default_factory=AudioSegment.empty)
 
-
 @functools.lru_cache(maxsize=None)
 def load_wav(file_path: str) -> AudioSegment:
     """Load a WAV file from disk."""
     return AudioSegment.from_wav(file_path)
-
 
 @functools.lru_cache(maxsize=None)
 def adjust_audio_cached(file_path: str, target_duration: float, target_amplitude: int, volume: int) -> AudioSegment:
@@ -65,14 +60,18 @@ def adjust_audio_cached(file_path: str, target_duration: float, target_amplitude
     
     # Apply volume scaling (volume factor relative to DEFAULT_SOUND_VOLUME)
     volume_factor = volume / DEFAULT_SOUND_VOLUME
-    audio = audio + (20 * np.log10(volume_factor))
+    volume_factor = np.log10(volume_factor) if volume_factor > 0 else -np.inf
+    audio = audio + (20 * volume_factor)
     
-    # Increase volume for DON and BALLOON_BANG sounds
-    if file_path in (DON_WAV, BALLOON_BANG_WAV):
-        audio = audio + EXTRA_GAIN_FOR_DON_BALLOON
+    # Increase volume
+    if file_path in (DON_WAV, BALLOON_BANG_WAV, BIGDON_WAV, PARTY_POPPER_SUCCESS_WAV, PARTY_POPPER_FAILURE_WAV):
+        audio = audio + 8
+
+    # Decrease volume
+    if file_path in (KA_WAV):
+        audio = audio - 3
     
     return audio
-
 
 class TaikoMusic:
     def __init__(self):
@@ -104,10 +103,7 @@ class TaikoMusic:
         with open(self.tja_file, "r", encoding="utf-8") as f:
             tja_content = f.read()
 
-        parsed_tja = parse_tja(tja_content)
-        # import objprint
-        # with open("parsed_tja.txt", "w") as f:
-        #     f.write(objprint.objstr(parsed_tja))
+        parsed_tja = parse_tja(tja_content)        
         music = CourseMusic()
         for chart in parsed_tja.charts:
             course = chart.course
