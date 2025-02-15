@@ -24,8 +24,7 @@ def handle(*attributes: List[Union[str, int]]) -> Tuple[np.ndarray, np.ndarray, 
     try:
         music: CourseMusic = taiko.generate_taiko_music()
     except Exception as e:
-        gr.Error(e)
-        raise e
+        raise gr.Error(e)
     
     return music.ura, music.oni, music.hard, music.normal, music.easy
 
