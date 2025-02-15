@@ -28,7 +28,7 @@ def UserInterface(event_handler: callable) -> gr.Interface:
 
             # gradio column block: input files and settings
             with gr.Column():
-                gr.Markdown(f'<a target="_blank" href="{SOURCE_CODE_GH_URL}"> <img src="{BADGE_URL}" alt="GitHub"/> </a>')
+                gr.HTML(f'<a target="_blank" href="{SOURCE_CODE_GH_URL}"> <img src="{BADGE_URL}" alt="GitHub"/> </a>')
                 
                 # gradio row block: upload TJA and Song
                 with gr.Row(): 
