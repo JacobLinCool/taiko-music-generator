@@ -10,3 +10,4 @@ poetry.lock
 
 # gradio
 flagged
+.gradio
