@@ -1,5 +1,3 @@
-from typing import List
-
 import gradio as gr
 
 from .taiko import (
@@ -15,8 +13,6 @@ TAIKO_OFFICIAL_URL = "https://taiko.namco-ch.net/taiko/howto/onpu.php#onpu"
 EXAMPLE_SONG_LIST = ["Blue Rose Ruin", "千本桜", "さいたま2000", "百花繚乱", "第六天魔王"]
 
 def UserInterface(event_handler: callable) -> gr.Interface:
-    files = []
-    settings = []
     taiko = TaikoMusic()
 
     with gr.Blocks(delete_cache=(86400, 86400)) as gradio_interface:
@@ -42,7 +38,7 @@ def UserInterface(event_handler: callable) -> gr.Interface:
                         taiko.tja_file = gr.File(label="tja", file_types=[".tja"])
                     with gr.Column():
                         gr.Markdown("## 🎙️ 楽曲 Song (Optional)")
-                        taiko.song_file = gr.File(label="ogg/mp3", file_types=[".ogg", ".mp3"])
+                        taiko.song_file = gr.File(label="mp3/ogg/wav", file_types=[".ogg", ".mp3", ".wav"])
 
                 # gradio row block: advanced settings
                 with gr.Row():
