@@ -1,10 +1,10 @@
 import functools
 from dataclasses import dataclass, field
-from typing import List, Dict, Tuple, Optional, Union
+from typing import List, Tuple, Optional, Union
 
 import numpy as np
 from pydub import AudioSegment
-from tja import parse_tja, PyParsedTJA, PyChart
+from tja import parse_tja, PyChart
 
 DON_WAV = "./assets/sound/Don.wav"
 KA_WAV = "./assets/sound/Ka.wav"
@@ -152,12 +152,12 @@ class TaikoMusic:
             return mixed_audio_segment
         else:
             # Overlay drum sounds on background music
-            if self.song_file.endswith(".mp3"):
-                background_music = AudioSegment.from_mp3(self.song_file)
-            elif self.song_file.endswith(".ogg"):
-                background_music = AudioSegment.from_ogg(self.song_file)
+            if self.song_file.endswith((".mp3", ".ogg", ".wav")):
+                background_music = AudioSegment.from_file(self.song_file)
             else:
-                raise ValueError("Unsupported file format. Please provide mp3 or ogg file.")
+                raise ValueError(
+                    "Unsupported file format. Please provide mp3, ogg, or wav file."
+                )
             
             # Calculate gain in dB relative to DEFAULT_SOUND_VOLUME
             if self.song_sound_volume > 0:
